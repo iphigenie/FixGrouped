@@ -2,7 +2,7 @@
 
 No License figured out yet. Use to get an idea and do better :)
 
-A messy, out of its depth set of plugins fixing Magento2 for Grouped Products
+A messy, out of its depth set of plugins fixing Magento2 for Grouped Products, Alpine_FixGrouped
 
 I am out of my depth, all I have done is look around the M2 code, trace things around and try to understand how things are done. 
 
