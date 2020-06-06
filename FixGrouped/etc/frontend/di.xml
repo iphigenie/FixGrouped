@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Model\Product\Url">
+        <plugin sortOrder="10" name="FixModelProductUrl" type="Alpine\FixGrouped\Plugin\Model\Product\Url" disabled="false" />
+    </type>
+    <type name="Magento\GroupedProduct\Model\Product\Type\Grouped">
+        <plugin sortOrder="10" name="FixModelProductTypeGrouped" type="Alpine\FixGrouped\Plugin\Model\Product\Type\Grouped" disabled="false" />
+    </type>
+    <type name="Magento\Review\Model\ResourceModel\Review\Collection">
+        <plugin sortOrder="10" name="FixModelReviewCollection" type="Alpine\FixGrouped\Plugin\Model\Review\ResourceModel\Review\Collection" disabled="false" />
+    </type>
+    <type name="Magento\Review\Model\ResourceModel\Review\Product\Collection">
+        <plugin sortOrder="1" name="FixModelReviewProductCollection" type="Alpine\FixGrouped\Plugin\Model\Review\ResourceModel\Review\Product\Collection" disabled="false" />
+    </type>
+    <type name="Magento\Review\Model\ResourceModel\Review\Summary">
+        <plugin sortOrder="1" name="FixModelReviewSummary" type="Alpine\FixGrouped\Plugin\Model\Review\ResourceModel\Review\Summary" disabled="false" />
+    </type>    
+    <type name="Magento\Review\Model\ResourceModel\Review\Summary\Collection">
+        <plugin sortOrder="1" name="FixModelReviewSummaryCollection" type="Alpine\FixGrouped\Plugin\Model\Review\ResourceModel\Review\Summary\Collection" disabled="false" />
+    </type>
+    <type name="Magento\Review\Model\ResourceModel\Rating\Collection">
+        <plugin sortOrder="1" name="FixModelRatingCollection" type="Alpine\FixGrouped\Plugin\Model\Review\ResourceModel\Rating\Collection" disabled="false" />
+    </type>
+    <type name="Magento\Review\Model\ResourceModel\Rating\Option\Vote\Collection">
+        <plugin sortOrder="1" name="FixModelRatingVoteCollection" type="Alpine\FixGrouped\Plugin\Model\Review\ResourceModel\Rating\Option\Vote\Collection" disabled="false" />
+    </type>
+</config>
