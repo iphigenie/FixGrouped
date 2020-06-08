@@ -33,7 +33,7 @@ class Url
      * @return  string
      */
 
-    public function beforeGetUrl(\Magento\Catalog\Model\Product\Url $subject, \Magento\Catalog\Model\Product $product, array $params)
+    public function beforeGetUrl(\Magento\Catalog\Model\Product\Url $subject, \Magento\Catalog\Model\Product $product, array $params = [])
     {     
         //$logger = \Magento\Framework\App\ObjectManager::getInstance()->get(\Psr\Log\LoggerInterface::class);
         $params['_ignore_category']= true;
