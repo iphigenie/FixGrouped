@@ -30,7 +30,6 @@ class Collection
         if (count($arrRatingId) == 0) {
             return $target;
         }
-
         $connection = $target->getConnection();
 
         $inCond = $connection->prepareSqlCondition('rating_option_vote.rating_id', ['in' => $arrRatingId]);
@@ -51,29 +50,39 @@ class Collection
                 []
             );
         }
-        $select->join(
-            ['review' => $target->getTable('review')],
-            'review_store.review_id=review.review_id AND review.status_id=1',
-            []
-        )->where(
-            $inCond
-        )->where(
-            'rating_option_vote.entity_pk_value in ( :pk_value )'
-        )->group(
-            'rating_option_vote.rating_id'
-        );
-
 
         $idlist = $entityPkValue;
         if (  ( is_numeric($entityPkValue)) ) {
+            $select->join(
+                ['review' => $target->getTable('review')],
+                'review_store.review_id=review.review_id AND review.status_id=1',
+                []
+            )->where(
+                $inCond
+            )->where(
+                'rating_option_vote.entity_pk_value in ( :pk_value )'
+            )->group(
+                'rating_option_vote.rating_id'
+            );
+
             $children = $this->helper->getGroupedChildren($entityPkValue);
             if (!empty($children[3])) 
             {
                 foreach(array_keys($children[3]) as $key) {$idlist .= ','.$key;}
             }
-            $logger->info('JN FixGrouped\Plugin\Model\Review\ResourceModel\Rating aroundAddEntitySummaryToItem  ['.$idlist.']'); 
+        } else {
+            $select->join(
+                ['review' => $target->getTable('review')],
+                'review_store.review_id=review.review_id AND review.status_id=1',
+                []
+            )->where(
+                $inCond
+            )->where(
+                'rating_option_vote.entity_pk_value=:pk_value'
+            )->group(
+                'rating_option_vote.rating_id'
+            );
         }
-
 
         $bind = [':store_id' => (int)$storeId, ':pk_value' => $idlist];
         if (!$target->getStoreManager->isSingleStoreMode()) {

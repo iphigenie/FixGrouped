@@ -11,7 +11,6 @@ use Alpine\FixGrouped\Helper\Data;
 
 class Collection 
 {
-
     /**
      * @var \Alpine\FixGrouped\Helper\Data
      */
@@ -24,7 +23,8 @@ class Collection
         \Alpine\FixGrouped\Helper\Data $helper
     ) {
         $this->helper = $helper;
-    }  
+        }
+
 
 
     /**
@@ -36,10 +36,6 @@ class Collection
      */
     public function aroundAddEntityFilter(\Magento\Review\Model\ResourceModel\Review\Collection $target, \Closure $ignore, $entity, $pkValue)
     {
-
-        $logger = \Magento\Framework\App\ObjectManager::getInstance()->get(\Psr\Log\LoggerInterface::class);
-        $logger->info('JN FixGrouped\Plugin\Model\Review\ResourceModel\Review aroundAddEntityFilter for ['.$entity.' '.$pkValue.']');  
-
         $reviewEntityTable = $target->getTable('review_entity');
         if (is_numeric($entity)) {
             $target->addFilter('entity', $target->getConnection()->quoteInto('main_table.entity_id=?', $entity), 'string');
@@ -64,14 +60,23 @@ class Collection
             {
                 foreach(array_keys($children[3]) as $key) {$idlist .= ','.$key;}
             }
-            $logger->info('JN FixGrouped\Plugin\Model\Review\ResourceModel\Review aroundAddEntityFilter  ['.$idlist.']'); 
         }
 
-        $target->addFilter(
+        if ($idlist) 
+        {        $target->addFilter(
             'entity_pk_value',
             'main_table.entity_pk_value in ('.$idlist.')',
-            'string'
-        );
+            'string' );
+        } 
+        else 
+        {
+            $target->addFilter(
+                'entity_pk_value',
+                $target->getConnection()->quoteInto('main_table.entity_pk_value=?', $pkValue),
+                'string'
+            );
+        }
+
         return $target;
     }
 

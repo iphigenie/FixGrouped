@@ -33,7 +33,6 @@ class Collection
     public function aroundSetEntityPkFilter(\Magento\Review\Model\ResourceModel\Rating\Option\Vote\Collection $target, \Closure $ignore, $entityId)
     {
         $logger = \Magento\Framework\App\ObjectManager::getInstance()->get(\Psr\Log\LoggerInterface::class);
-
         $idlist = $entityId;
         if (  ( is_numeric($entityId)) ) {
             $children = $this->helper->getGroupedChildren($entityId);
@@ -41,10 +40,9 @@ class Collection
             {
                 foreach(array_keys($children[3]) as $key) {$idlist .= ','.$key;}
             }
-            $logger->info('JN FixGrouped\Plugin\Model\Review\ResourceModel\Rating\Option\Vote aroundSetEntityPkFilter  ['.$idlist.']'); 
+            $target->getSelect()->where("entity_pk_value IN (".$idlist.")");
         }
-        $this->getSelect()->where("entity_pk_value IN (".$idlist.")");
-        $logger->info('JN FixGrouped\PLUGIN\Model\Review\ResourceModel\Rating\Option\Vote  query  ['. $target->getSelect().']'); 
+        else  {$target->getSelect()->where("entity_pk_value = ?", $entityId);}
         return $target;
     }
 

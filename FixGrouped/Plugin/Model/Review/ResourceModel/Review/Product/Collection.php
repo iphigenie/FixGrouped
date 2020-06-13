@@ -16,6 +16,7 @@ use Alpine\FixGrouped\Helper\Data;
 
 class Collection 
 {
+
     /**
      * @var \Alpine\FixGrouped\Helper\Data
      */
@@ -38,20 +39,19 @@ class Collection
      */
 
     public function aroundAddEntityFilter( \Magento\Review\Model\ResourceModel\Review\Product\Collection $target, \Closure $ignore, $entityId)
-    {
-        $logger = \Magento\Framework\App\ObjectManager::getInstance()->get(\Psr\Log\LoggerInterface::class);
-        //$logger->info('JN FixGrouped\PLUGIN\Model\Review\ResourceModel\Review\Product aroundAddEntityFilter for ['.$entityId.']');
-
-        $idlist = $entityId;
-        $children = $this->helper->getGroupedChildren($entityId);
-        if (!empty($children[3])) 
-        {
-            foreach(array_keys($children[3]) as $key) {$idlist .= ','.$key;}
+    {        
+        if ($entityId) {
+            $idlist = $entityId;
+            $children = $this->helper->getGroupedChildren($entityId);
+            if (!empty($children[3])) 
+            {
+                foreach(array_keys($children[3]) as $key) {$idlist .= ','.$key;}
+            }
+            $target->getSelect()->where('rt.entity_pk_value in (?)', $idlist);
+        } else {
+            $target->getSelect()->where('rt.entity_pk_value = ?', $entityId);
         }
-        $logger->info('JN FixGrouped\PLUGIN\Model\Review\ResourceModel\Review\Product aroundAddEntityFilter  ['.$idlist.']'); 
 
-        $target->getSelect()->where('rt.entity_pk_value in (?)', $entityId);
-        $logger->info('JN FixGrouped\PLUGIN\Model\Review\ResourceModel\Review\Product aroundAddEntityFilter query  ['. $target->getSelect().']'); 
         return $target;
     }
 
