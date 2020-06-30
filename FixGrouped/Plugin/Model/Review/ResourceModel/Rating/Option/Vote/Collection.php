@@ -32,7 +32,7 @@ class Collection
      */
     public function aroundSetEntityPkFilter(\Magento\Review\Model\ResourceModel\Rating\Option\Vote\Collection $target, \Closure $ignore, $entityId)
     {
-        $logger = \Magento\Framework\App\ObjectManager::getInstance()->get(\Psr\Log\LoggerInterface::class);
+        //$logger = \Magento\Framework\App\ObjectManager::getInstance()->get(\Psr\Log\LoggerInterface::class);
         $idlist = $entityId;
         if (  ( is_numeric($entityId)) ) {
             $children = $this->helper->getGroupedChildren($entityId);
