@@ -15,19 +15,7 @@ class Grouped
      */
     public function afterGetAssociatedProductCollection(\Magento\GroupedProduct\Model\Product\Type\Grouped $subject, Collection $result)
     {
-        $result->addAttributeToSelect('vintage_single');
-        $result->addAttributeToSelect('catalog_name');
-        $result->addAttributeToSelect('bottlesize');
-        $result->addAttributeToSelect('alcohol');
-        $result->addAttributeToSelect('sugar');
-        $result->addAttributeToSelect('acidity');
-        $result->addAttributeToSelect('boughtin');
-        $result->addAttributeToSelect('tasted');
-        $result->addAttributeToSelect('keep');
-        $result->addAttributeToSelect('mature');
-        $result->addAttributeToSelect('is_current');
-        $result->addAttributeToSelect('casesize');
-        $result->addAttributeToSelect('tastingnotes');
+
         $result->addAttributeToSelect('tagline');
 
         return $result;

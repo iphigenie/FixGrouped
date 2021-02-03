@@ -52,11 +52,32 @@ class Data extends AbstractHelper
     }
 
     /**
-     * Get current product canonical URL
+     * Get current product parent URL
      *
      * @return string
      */
     public function getProductFixedUrl($product)
+    {
+
+        if ($product) {
+            $parent = $this->getParent($product);
+            $product = $parent ?: $product;
+        }
+
+        return $product
+            ? $product->getUrlModel()->getUrl(
+                $product,
+                ['_ignore_category' => true]
+            )
+            : '';
+    }    
+
+    /**
+     * Get current product parent URL
+     *
+     * @return string
+     */
+    public function getProductUrl($product)
     {
 
         if ($product) {

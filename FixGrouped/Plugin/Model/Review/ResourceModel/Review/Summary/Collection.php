@@ -23,8 +23,15 @@ class Collection
         $target->addFieldToSelect(
                 ['store_id', 'reviews_count' => new \Zend_Db_Expr('SUM(reviews_count)'),'rating_summary' => new \Zend_Db_Expr('SUM(rating_summary*reviews_count)/SUM(reviews_count)')]
         );
+        $myentities = "";
+        if (is_array($entityId)) {
+            $myentities = join(',',$entityId);
+        } else {
+            $myentities = $entityId;
+        }
+  
         $target->getSelect()->where(
-            "entity_pk_value IN ($entityId) or entity_pk_value in (SELECT linked_product_id FROM ".$linktable." WHERE product_id IN ($entityId) and link_type_id=3)"
+            "entity_pk_value IN ($myentities) or entity_pk_value in (SELECT linked_product_id FROM ".$linktable." WHERE product_id IN ($myentities) and link_type_id=3)"
             )->where('entity_type = ?', 1)->group(
             ['store_id']
         );
