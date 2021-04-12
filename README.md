@@ -17,6 +17,7 @@ Change for your own attributes
 Much of that is adding subqueries, or in the case of summary a monster union join thing that where there surely must be a better way to query 
 (or it should be done at the steps that populate the summary tables but I'm not messing with that)
 Not sure I caught all of them, esp around rating.
+TODO: sibling/parent ratings calculation for simple products in listings if they don't have their own
 
 3. Plugin overriding Product getUrl to return the parent if there is a grouped product parent. 
 This is to allow making simple products visible to use third party extensions but not have them go to their own page but the parent's.
