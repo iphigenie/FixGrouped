@@ -19,8 +19,7 @@ Much of that is adding subqueries, or in the case of summary a monster union joi
 Not sure I caught all of them, esp around rating.
 
 3. Plugin overriding Product getUrl to return the parent if there is a grouped product parent. 
-This is to allow making simple products visible to use third party extensions but not have them go 
+This is to allow making simple products visible to use third party extensions but not have them go to their own page but the parent's.
 
 4. (not done yet) Replicate a simple version of product page add to cart on product listings
-So products can be added to cart from listings, upsell lists etc.
-I'd done it on M1 but with knockout.js it's probably a bit more complicated on M2 so not tackled yet. 
+So products can be added to cart from listings, upsell lists etc. I'd done it on M1 but with knockout.js it's probably a bit more complicated on M2 so not tackled yet. 
